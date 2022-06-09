@@ -4,15 +4,22 @@ import net.dylanvhs.woody.block.ModBlocks;
 import net.dylanvhs.woody.block.ModWoodTypes;
 import net.dylanvhs.woody.entity.ModBlockEntities;
 import net.dylanvhs.woody.entity.ModEntityTypes;
+import net.dylanvhs.woody.entity.client.OwlRenderer;
+import net.dylanvhs.woody.entity.client.SquirrelRenderer;
+import net.dylanvhs.woody.entity.custom.SquirrelEntity;
 import net.dylanvhs.woody.item.ModItems;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -65,6 +72,8 @@ public class WoodyMod
         Sheets.addWoodType(ModWoodTypes.MAPLE);
     }
 
+
+
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
         // some example code to dispatch IMC to another mod
@@ -79,8 +88,11 @@ public class WoodyMod
                 collect(Collectors.toList()));
     }
 
-    private void clientSetup(final  FMLCommonSetupEvent event){
+    private void clientSetup(final FMLCommonSetupEvent event){
         WoodType.register(ModWoodTypes.MAPLE);
+        EntityRenderers.register(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
+        EntityRenderers.register(ModEntityTypes.OWL.get(), OwlRenderer::new);
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.NETTLE_BLOCK.get(), RenderType.cutout());
     }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent

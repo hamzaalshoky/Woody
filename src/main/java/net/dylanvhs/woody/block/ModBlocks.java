@@ -4,6 +4,7 @@ import net.dylanvhs.woody.WoodyMod;
 import net.dylanvhs.woody.block.custom.ModFlammableRotatedPillarBlock;
 import net.dylanvhs.woody.block.custom.ModStandingSignBlock;
 import net.dylanvhs.woody.block.custom.ModWallSignBlock;
+import net.dylanvhs.woody.block.custom.NettleBlock;
 import net.dylanvhs.woody.item.ModCreativeModeTab;
 import net.dylanvhs.woody.item.ModItems;
 import net.minecraft.core.BlockPos;
@@ -76,12 +77,15 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> MAPLE_BUTTON = registerBlock("maple_button",
                 () -> new WoodButtonBlock(BlockBehaviour.Properties.of(Material.WOOD)
-                    .strength(2f).requiresCorrectToolForDrops().noCollission()), ModCreativeModeTab.WOODY_TAB);
+                    .strength(2f).noCollission()), ModCreativeModeTab.WOODY_TAB);
 
-    public static final RegistryObject<Block> MAPLE_PRESSURE_PLATE = registerBlock("cobalt_pressure_plate",
+    public static final RegistryObject<Block> MAPLE_PRESSURE_PLATE = registerBlock("maple_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD)
-                    .strength(2f).requiresCorrectToolForDrops()), ModCreativeModeTab.WOODY_TAB);
+                    .strength(2f)), ModCreativeModeTab.WOODY_TAB);
 
+    public static final RegistryObject<Block> NETTLE_BLOCK = BLOCKS.register("nettle_block",
+            () -> new NettleBlock(BlockBehaviour.Properties.copy(Blocks.CARROTS)
+                    .noCollission().noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
